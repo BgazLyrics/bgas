@@ -1,7 +1,6 @@
-// app/sitemap.ts
-import { MetadataRoute } from 'next'
+// app/sitemap.js
 
-export default function sitemap(): MetadataRoute.Sitemap {
+export default function sitemap() {
   const baseUrl = 'https://bagasss.my.id'
 
   return [
