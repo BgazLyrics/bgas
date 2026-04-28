@@ -37,11 +37,21 @@ export default function Footer() {
                   <path fillRule="evenodd" d="M19.812 5.422a4.234 4.234 0 0 0-2.992-2.992C15.25 2 12 2 12 2s-3.25 0-4.819.43a4.234 4.234 0 0 0-2.992 2.992C2 7.009 2 12 2 12s0 4.991.431 6.578a4.234 4.234 0 0 0 2.992 2.992C7.009 22 12 22 12 22s4.991 0 6.578-.43a4.234 4.234 0 0 0 2.992-2.992C22 16.991 22 12 22 12s0-4.991-.43-6.578ZM9.75 15.5V8.5l6 3.5-6 3.5Z" clipRule="evenodd" />
                 </svg>
               </a>
-              <a href="https://github.com/BgazLyrics" aria-label="Github" className="text-gray-400 hover:text-blue-400 transition-colors">
+              <a href="https://github.com/BgazLyrics" aria-label="Github" className="text-gray-400 hover:text-white transition-colors">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
                   <path fillRule="evenodd" d="M12 2C6.477 2 2 6.477 2 12c0 4.418 2.865 8.165 6.839 9.489.5.092.682-.217.682-.482 0-.237-.009-.868-.014-1.703-2.782.605-3.369-1.343-3.369-1.343-.454-1.158-1.11-1.466-1.11-1.466-.908-.62.069-.608.069-.608 1.003.07 1.531 1.032 1.531 1.032.892 1.53 2.341 1.088 2.91.832.092-.647.35-1.088.636-1.338-2.22-.253-4.555-1.113-4.555-4.951 0-1.093.39-1.988 1.031-2.688-.103-.253-.446-1.272.098-2.65 0 0 .84-.27 2.75 1.026A9.564 9.564 0 0112 6.844c.85.004 1.705.115 2.504.337 1.909-1.296 2.747-1.027 2.747-1.027.546 1.378.203 2.398.1 2.651.64.7 1.03 1.595 1.03 2.688 0 3.848-2.338 4.695-4.566 4.942.359.308.678.92.678 1.852 0 1.338-.012 2.419-.012 2.747 0 .268.18.578.688.482A10.001 10.001 0 0022 12c0-5.523-4.477-10-10-10z" clipRule="evenodd" />
                 </svg>
               </a>
+              <button 
+                onClick={() => window.dispatchEvent(new Event('openTerminal'))}
+                aria-label="Open Terminal" 
+                className="text-gray-400 hover:text-green-400 transition-colors ml-4"
+                title="Buka Terminal Rahasia (Ctrl+K)"
+              >
+                <svg className="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M8 9l3 3-3 3m5 0h3M4 18h16a2 2 0 002-2V6a2 2 0 00-2-2H4a2 2 0 00-2 2v10a2 2 0 002 2z"></path>
+                </svg>
+              </button>
             </div>
           </div>
         </div>

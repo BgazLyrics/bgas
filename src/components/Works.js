@@ -1,18 +1,58 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useEffect } from "react";
+import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+
+// Komponen GlowCard Reusable
+const GlowCard = ({ children, className }) => {
+  const divRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e) => {
+    if (!divRef.current || isFocused) return;
+    const div = divRef.current;
+    const rect = div.getBoundingClientRect();
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleFocus = () => { setIsFocused(true); setOpacity(1); };
+  const handleBlur = () => { setIsFocused(false); setOpacity(0); };
+  const handleMouseEnter = () => setOpacity(1);
+  const handleMouseLeave = () => setOpacity(0);
+
+  return (
+    <div
+      ref={divRef}
+      onMouseMove={handleMouseMove}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`relative overflow-hidden rounded-lg bg-white/5 backdrop-blur-md border border-white/10 ${className}`}
+    >
+      <div
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300 z-20"
+        style={{
+          opacity,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(59,130,246,.25), transparent 40%)`,
+        }}
+      />
+      {children}
+    </div>
+  );
+};
 
 export default function Works() {
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [itemsPerPage, setItemsPerPage] = useState(3); // Default to 3, updated on mount
+  const [itemsPerPage, setItemsPerPage] = useState(3);
 
   useEffect(() => {
     const handleResize = () => {
       setItemsPerPage(window.innerWidth < 768 ? 1 : 3);
     };
-    // Initialize
     handleResize();
     window.addEventListener("resize", handleResize);
     return () => window.removeEventListener("resize", handleResize);
@@ -59,7 +99,6 @@ export default function Works() {
 
   const totalPages = Math.ceil(works.length / itemsPerPage);
   
-  // Safe bounds check in case resize changes totalPages
   useEffect(() => {
     if (currentIndex >= totalPages) {
       setCurrentIndex(Math.max(0, totalPages - 1));
@@ -76,13 +115,13 @@ export default function Works() {
 
   return (
     <section id="portfolio" className="py-24">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
           >
             Karya Terbaru
           </motion.h2>
@@ -90,7 +129,7 @@ export default function Works() {
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="w-20 h-1 bg-blue-500 mx-auto"
+            className="w-16 h-1 bg-blue-500 mx-auto rounded-full"
           ></motion.div>
         </div>
 
@@ -100,7 +139,7 @@ export default function Works() {
           viewport={{ once: true }}
           className="relative"
         >
-          <div className="overflow-hidden rounded-lg relative">
+          <div className="overflow-hidden rounded-lg relative pb-4">
             <div
               className="flex transition-transform duration-500 ease-in-out"
               style={{
@@ -109,20 +148,21 @@ export default function Works() {
             >
               {works.map((work, index) => (
                 <div key={index} className={`w-full flex-shrink-0 px-4`} style={{ width: `${100 / itemsPerPage}%` }}>
-                  <div className="group relative overflow-hidden rounded-lg bg-white/5 backdrop-blur-md border border-white/10 aspect-[4/3]">
-                    <Link href={work.link} target={work.link === "#" ? "_self" : "_blank"} rel="noopener noreferrer">
+                  <GlowCard className="group aspect-[4/3]">
+                    <Link href={work.link} target={work.link === "#" ? "_self" : "_blank"} rel="noopener noreferrer" className="block w-full h-full">
                       {/* eslint-disable-next-line @next/next/no-img-element */}
                       <img
                         src={work.img}
                         alt={work.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500"
+                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-0"
                       />
-                      <div className="absolute bottom-0 left-0 right-0 p-4 bg-black/70 backdrop-blur-sm transform translate-y-full group-hover:translate-y-0 transition-transform duration-500 ease-in-out">
-                        <h4 className="font-bold text-lg text-white">{work.title}</h4>
-                        {work.role && <p className="text-sm text-gray-300">{work.role}</p>}
+                      <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 z-10" />
+                      <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-10">
+                        <h4 className="font-bold text-xl text-white mb-1 group-hover:text-blue-300 transition-colors">{work.title}</h4>
+                        {work.role && <p className="text-sm text-gray-300 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">{work.role}</p>}
                       </div>
                     </Link>
-                  </div>
+                  </GlowCard>
                 </div>
               ))}
             </div>

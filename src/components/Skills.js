@@ -1,6 +1,63 @@
 "use client";
 
 import { motion } from "framer-motion";
+import { useState, useRef, useEffect } from "react";
+
+// Komponen GlowCard Reusable
+const GlowCard = ({ children, className }) => {
+  const divRef = useRef(null);
+  const [isFocused, setIsFocused] = useState(false);
+  const [position, setPosition] = useState({ x: 0, y: 0 });
+  const [opacity, setOpacity] = useState(0);
+
+  const handleMouseMove = (e) => {
+    if (!divRef.current || isFocused) return;
+
+    const div = divRef.current;
+    const rect = div.getBoundingClientRect();
+
+    setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
+  };
+
+  const handleFocus = () => {
+    setIsFocused(true);
+    setOpacity(1);
+  };
+
+  const handleBlur = () => {
+    setIsFocused(false);
+    setOpacity(0);
+  };
+
+  const handleMouseEnter = () => {
+    setOpacity(1);
+  };
+
+  const handleMouseLeave = () => {
+    setOpacity(0);
+  };
+
+  return (
+    <div
+      ref={divRef}
+      onMouseMove={handleMouseMove}
+      onFocus={handleFocus}
+      onBlur={handleBlur}
+      onMouseEnter={handleMouseEnter}
+      onMouseLeave={handleMouseLeave}
+      className={`relative overflow-hidden rounded-xl bg-white/5 backdrop-blur-lg border border-white/10 ${className}`}
+    >
+      <div
+        className="pointer-events-none absolute -inset-px opacity-0 transition duration-300"
+        style={{
+          opacity,
+          background: `radial-gradient(600px circle at ${position.x}px ${position.y}px, rgba(59,130,246,.15), transparent 40%)`,
+        }}
+      />
+      {children}
+    </div>
+  );
+};
 
 export default function Skills() {
   const containerVariants = {
@@ -20,13 +77,13 @@ export default function Skills() {
 
   return (
     <section id="layanan" className="py-24 bg-black/10">
-      <div className="container mx-auto px-6">
+      <div className="container mx-auto px-6 max-w-7xl">
         <div className="text-center mb-16">
           <motion.h2
             initial={{ opacity: 0, y: 20 }}
             whileInView={{ opacity: 1, y: 0 }}
             viewport={{ once: true }}
-            className="text-3xl font-bold text-white mb-4"
+            className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
           >
             Kemampuan Skill
           </motion.h2>
@@ -34,7 +91,7 @@ export default function Skills() {
             initial={{ opacity: 0, scale: 0 }}
             whileInView={{ opacity: 1, scale: 1 }}
             viewport={{ once: true }}
-            className="w-20 h-1 bg-blue-500 mx-auto"
+            className="w-16 h-1 bg-blue-500 mx-auto rounded-full"
           ></motion.div>
         </div>
         
@@ -43,14 +100,14 @@ export default function Skills() {
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-50px" }}
-          className="grid md:grid-cols-3 gap-8"
+          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
           {/* Web Development */}
-          <motion.div variants={itemVariants}>
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-lg text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="mb-4">
+          <motion.div variants={itemVariants} className="h-full">
+            <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
+              <div className="mb-4 relative z-10">
                 <svg
-                  className="w-12 h-12 mx-auto text-blue-400"
+                  className="w-12 h-12 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -64,19 +121,19 @@ export default function Skills() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Web Development</h3>
-              <p className="text-gray-400">
-                Pengembangan situs web dan dapat menggunakan teknologi terkini.
+              <h3 className="text-xl font-bold text-white mb-3 relative z-10">Web Development</h3>
+              <p className="text-gray-400 relative z-10">
+                Pengembangan situs web interaktif dengan framework modern terkini.
               </p>
-            </div>
+            </GlowCard>
           </motion.div>
 
           {/* Video Editor */}
-          <motion.div variants={itemVariants}>
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-lg text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="mb-4">
+          <motion.div variants={itemVariants} className="h-full">
+            <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
+              <div className="mb-4 relative z-10">
                 <svg
-                  className="w-16 h-16 mx-auto text-blue-400"
+                  className="w-16 h-16 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -90,19 +147,19 @@ export default function Skills() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">Video Editor</h3>
-              <p className="text-gray-300">
-                Memodifikasi clip by clip yang menciptakan sesuatu yang baru.
+              <h3 className="text-xl font-bold text-white mb-3 relative z-10">Video Editor</h3>
+              <p className="text-gray-400 relative z-10">
+                Memodifikasi clip by clip untuk menciptakan visual bercerita yang baru.
               </p>
-            </div>
+            </GlowCard>
           </motion.div>
 
           {/* Fotografer & Videografer */}
-          <motion.div variants={itemVariants}>
-            <div className="bg-white/5 backdrop-blur-lg border border-white/10 p-8 rounded-lg text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="mb-4">
+          <motion.div variants={itemVariants} className="h-full">
+            <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
+              <div className="mb-4 relative z-10">
                 <svg
-                  className="w-12 h-12 mx-auto text-blue-400"
+                  className="w-12 h-12 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
                   fill="none"
                   stroke="currentColor"
                   viewBox="0 0 24 24"
@@ -122,13 +179,13 @@ export default function Skills() {
                   ></path>
                 </svg>
               </div>
-              <h3 className="text-xl font-bold text-white mb-2">
+              <h3 className="text-xl font-bold text-white mb-3 relative z-10">
                 Fotografer & Videografer
               </h3>
-              <p className="text-gray-400">
-                Mengabadikan momen melalui lensa dengan komposisi yang menarik.
+              <p className="text-gray-400 relative z-10">
+                Mengabadikan momen melalui lensa dengan komposisi pencahayaan dramatis.
               </p>
-            </div>
+            </GlowCard>
           </motion.div>
         </motion.div>
       </div>

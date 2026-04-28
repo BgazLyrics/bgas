@@ -13,9 +13,9 @@ export default function About() {
           transition={{ duration: 0.8 }}
           className="max-w-4xl mx-auto text-center"
         >
-          <h2 className="text-3xl font-bold text-white mb-4">Tentang Saya</h2>
+          <h2 className="text-3xl md:text-4xl font-bold text-white mb-4">Tentang Saya</h2>
           <div className="w-20 h-1 bg-blue-500 mx-auto mb-8"></div>
-          <p className="text-gray-300 leading-relaxed text-lg">
+          <p className="text-gray-300 leading-relaxed text-base md:text-lg lg:text-xl">
             Bagas Seviardana Rionaldi. Saya merupakan seorang pelajar yang penuh
             semangat dan sangat tertarik dengan dunia teknologi, khususnya dalam
             pemrograman dan pengembangan perangkat lunak. Saat ini saya

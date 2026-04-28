@@ -4,6 +4,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
 import ParticleCanvas from "./ParticleCanvas";
+import Model3D from "./Model3D";
 
 export default function Hero() {
   const heroTitles = [
@@ -23,47 +24,79 @@ export default function Hero() {
   }, [heroTitles.length]);
 
   return (
-    <section id="hero" className="min-h-screen flex items-center pt-20 relative">
+    <section id="hero" className="min-h-screen flex items-center pt-20 relative overflow-hidden">
       <ParticleCanvas />
-      <div className="container mx-auto px-6 text-center relative z-10">
-        <div className="h-32 flex items-center justify-center mb-4">
-          <AnimatePresence mode="wait">
-            <motion.h1
-              key={titleIndex}
-              initial={{ opacity: 0, y: 10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.5 }}
-              className="text-4xl md:text-6xl font-bold text-white leading-tight"
+      <div className="container mx-auto px-6 relative z-10 flex flex-col lg:flex-row items-center justify-center gap-8 lg:gap-16">
+        
+        {/* Kolom Kiri: Teks */}
+        <div className="w-full lg:w-5/12 text-center lg:text-left mb-12 lg:mb-0 pt-10 lg:pt-0">
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.6 }}
+            className="inline-flex items-center gap-2 px-3 py-1.5 rounded-full bg-white/5 border border-white/10 mb-8 backdrop-blur-md"
+          >
+            <span className="flex h-2 w-2 rounded-full bg-blue-500"></span>
+            <span className="text-sm font-medium text-gray-300 tracking-wide">Available for Work</span>
+          </motion.div>
+
+          <div className="min-h-[160px] lg:min-h-[200px] flex flex-col justify-center lg:justify-start mb-6">
+            <AnimatePresence mode="wait">
+              <motion.h1
+                key={titleIndex}
+                initial={{ opacity: 0, y: 10 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -10 }}
+                transition={{ duration: 0.5 }}
+                className="text-4xl md:text-6xl font-extrabold text-white leading-[1.1] tracking-tight"
+              >
+                {heroTitles[titleIndex]}
+              </motion.h1>
+            </AnimatePresence>
+          </div>
+
+          <motion.p
+            initial={{ opacity: 0, y: 30 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.2 }}
+            className="text-lg md:text-xl text-gray-400 max-w-xl mx-auto lg:mx-0 mb-10 leading-relaxed font-light"
+          >
+            Membantu diri sendiri agar tidak terjebak dengan sesuatu yang negatif
+            merupakan suatu keajaiban.
+          </motion.p>
+          
+          <motion.div
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.8, delay: 0.4 }}
+            className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4"
+          >
+            <Link
+              href="#portfolio"
+              className="inline-flex items-center justify-center px-8 py-3.5 text-base font-semibold text-white bg-blue-600 rounded-full hover:bg-blue-500 transition-all shadow-[0_0_20px_rgba(37,99,235,0.4)] hover:shadow-[0_0_30px_rgba(37,99,235,0.6)]"
             >
-              {heroTitles[titleIndex]}
-            </motion.h1>
-          </AnimatePresence>
+              Lihat Karya Saya
+            </Link>
+            <Link
+              href="#kontak"
+              className="inline-flex items-center justify-center px-8 py-3.5 text-base font-medium text-white bg-white/5 border border-white/10 rounded-full hover:bg-white/10 transition-all backdrop-blur-md"
+            >
+              Hubungi Saya
+            </Link>
+          </motion.div>
         </div>
 
-        <motion.p
-          initial={{ opacity: 0, y: 30 }}
-          animate={{ opacity: 1, y: 0 }}
-          transition={{ duration: 0.8, delay: 0.2 }}
-          className="text-lg md:text-xl text-gray-300 max-w-3xl mx-auto mb-8"
+        {/* Kolom Kanan: 3D Model */}
+        <motion.div 
+          initial={{ opacity: 0, x: 50 }}
+          animate={{ opacity: 1, x: 0 }}
+          transition={{ duration: 1, delay: 0.5 }}
+          className="w-full lg:w-6/12 h-[350px] lg:h-[500px]"
         >
-          Membantu diri sendiri agar tidak terjebak dengan sesuatu yang negatif
-          merupakan suatu keajaiban.
-        </motion.p>
-        
-        <motion.div
-          initial={{ opacity: 0, scale: 0.9 }}
-          animate={{ opacity: 1, scale: 1 }}
-          transition={{ duration: 0.8, delay: 0.4 }}
-          className="inline-block"
-        >
-          <Link
-            href="#portfolio"
-            className="inline-block bg-blue-600 text-white font-bold py-3 px-8 rounded-full shadow-lg hover:bg-blue-700 focus:outline-none focus:ring-4 focus:ring-blue-500/50 transition-all duration-300 ease-in-out transform hover:scale-105"
-          >
-            Lihat Karya Saya
-          </Link>
+          <Model3D />
         </motion.div>
+
       </div>
     </section>
   );
