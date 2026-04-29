@@ -9,7 +9,7 @@ const poppins = Poppins({
 
 export const metadata = {
   title: "Bagas Seviardana Rionaldi | Portofolio Digital",
-  description: "Portofolio digital Bagas Seviardana Rionaldi. Pelajar penuh semangat dari SMK Negeri 1 Purwokerto dengan keahlian dalam Web Development, Video Editing, dan Fotografi.",
+  description: "Portofolio digital Bagas Seviardana. Pelajar SMK N 1 Purwokerto (PPLG) dengan keahlian Full-Stack Web Development, Video Editing & IT Enthusiast.",
   keywords: ["Bagas Seviardana Rionaldi", "Portofolio", "Web Developer", "Video Editor", "SMK Negeri 1 Purwokerto", "Frontend Developer"],
   authors: [{ name: "Bagas Seviardana Rionaldi" }],
   creator: "Bagas Seviardana Rionaldi",
@@ -19,7 +19,7 @@ export const metadata = {
     locale: "id_ID",
     url: "https://portofolio.bgas.my.id",
     title: "Bagas Seviardana Rionaldi | Portofolio Digital",
-    description: "Pelajar penuh semangat dari SMK Negeri 1 Purwokerto dengan keahlian dalam Web Development, Video Editing, dan Fotografi.",
+    description: "Portofolio digital Bagas Seviardana. Pelajar SMK N 1 Purwokerto (PPLG) dengan keahlian Full-Stack Web Development, Video Editing & IT Enthusiast.",
     siteName: "Bagas Portofolio",
   },
 };
