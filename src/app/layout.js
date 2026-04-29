@@ -14,6 +14,9 @@ export const metadata = {
   authors: [{ name: "Bagas Seviardana Rionaldi" }],
   creator: "Bagas Seviardana Rionaldi",
   metadataBase: new URL("https://portofolio.bgas.my.id"),
+  verification: {
+    google: "iHXiimogguhYXMQ7-3sExWZWFTx2D7o_R5xxcmeU99A",
+  },
   openGraph: {
     type: "website",
     locale: "id_ID",
