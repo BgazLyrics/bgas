@@ -1,7 +1,8 @@
 "use client";
 
 import { motion } from "framer-motion";
-import { useState, useRef, useEffect } from "react";
+import { useState, useRef } from "react";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Komponen GlowCard Reusable
 const GlowCard = ({ children, className }) => {
@@ -12,30 +13,15 @@ const GlowCard = ({ children, className }) => {
 
   const handleMouseMove = (e) => {
     if (!divRef.current || isFocused) return;
-
     const div = divRef.current;
     const rect = div.getBoundingClientRect();
-
     setPosition({ x: e.clientX - rect.left, y: e.clientY - rect.top });
   };
 
-  const handleFocus = () => {
-    setIsFocused(true);
-    setOpacity(1);
-  };
-
-  const handleBlur = () => {
-    setIsFocused(false);
-    setOpacity(0);
-  };
-
-  const handleMouseEnter = () => {
-    setOpacity(1);
-  };
-
-  const handleMouseLeave = () => {
-    setOpacity(0);
-  };
+  const handleFocus = () => { setIsFocused(true); setOpacity(1); };
+  const handleBlur = () => { setIsFocused(false); setOpacity(0); };
+  const handleMouseEnter = () => setOpacity(1);
+  const handleMouseLeave = () => setOpacity(0);
 
   return (
     <div
@@ -60,14 +46,12 @@ const GlowCard = ({ children, className }) => {
 };
 
 export default function Skills() {
+  const { t } = useLanguage();
+  const skillsData = t("skills.items") || [];
+
   const containerVariants = {
     hidden: { opacity: 0 },
-    visible: {
-      opacity: 1,
-      transition: {
-        staggerChildren: 0.3,
-      },
-    },
+    visible: { opacity: 1, transition: { staggerChildren: 0.3 } },
   };
 
   const itemVariants = {
@@ -85,7 +69,7 @@ export default function Skills() {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
           >
-            Kemampuan Skill
+            {t("skills.title")}
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, scale: 0 }}
@@ -102,91 +86,27 @@ export default function Skills() {
           viewport={{ once: true, margin: "-50px" }}
           className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8"
         >
-          {/* Web Development */}
-          <motion.div variants={itemVariants} className="h-full">
-            <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="mb-4 relative z-10">
-                <svg
-                  className="w-12 h-12 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3 relative z-10">Web Development</h3>
-              <p className="text-gray-400 relative z-10">
-                Pengembangan situs web interaktif dengan framework modern terkini.
-              </p>
-            </GlowCard>
-          </motion.div>
+          {skillsData.map((item, index) => {
+            const getIcon = (idx) => {
+              if (idx === 0) return <svg className="w-12 h-12 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M10 20l4-16m4 4l4 4-4 4M6 16l-4-4 4-4"></path></svg>;
+              if (idx === 1) return <svg className="w-16 h-16 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732zM9 5l-7 7"></path></svg>;
+              return <svg className="w-12 h-12 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" fill="none" stroke="currentColor" viewBox="0 0 24 24"><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"></path><path strokeLinecap="round" strokeLinejoin="round" strokeWidth="2" d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"></path></svg>;
+            };
 
-          {/* Video Editor */}
-          <motion.div variants={itemVariants} className="h-full">
-            <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="mb-4 relative z-10">
-                <svg
-                  className="w-16 h-16 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15.232 5.232l3.536 3.536m-2.036-5.036a2.5 2.5 0 113.536 3.536L6.5 21.036H3v-3.572L16.732 3.732zM9 5l-7 7"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3 relative z-10">Video Editor</h3>
-              <p className="text-gray-400 relative z-10">
-                Memodifikasi clip by clip untuk menciptakan visual bercerita yang baru.
-              </p>
-            </GlowCard>
-          </motion.div>
-
-          {/* Fotografer & Videografer */}
-          <motion.div variants={itemVariants} className="h-full">
-            <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
-              <div className="mb-4 relative z-10">
-                <svg
-                  className="w-12 h-12 mx-auto text-blue-400 drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]"
-                  fill="none"
-                  stroke="currentColor"
-                  viewBox="0 0 24 24"
-                  xmlns="http://www.w3.org/2000/svg"
-                >
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M3 9a2 2 0 012-2h.93a2 2 0 001.664-.89l.812-1.22A2 2 0 0110.07 4h3.86a2 2 0 011.664.89l.812 1.22A2 2 0 0018.07 7H19a2 2 0 012 2v9a2 2 0 01-2 2H5a2 2 0 01-2-2V9z"
-                  ></path>
-                  <path
-                    strokeLinecap="round"
-                    strokeLinejoin="round"
-                    strokeWidth="2"
-                    d="M15 13a3 3 0 11-6 0 3 3 0 016 0z"
-                  ></path>
-                </svg>
-              </div>
-              <h3 className="text-xl font-bold text-white mb-3 relative z-10">
-                Fotografer & Videografer
-              </h3>
-              <p className="text-gray-400 relative z-10">
-                Mengabadikan momen melalui lensa dengan komposisi pencahayaan dramatis.
-              </p>
-            </GlowCard>
-          </motion.div>
+            return (
+              <motion.div key={index} variants={itemVariants} className="h-full">
+                <GlowCard className="p-8 h-full text-center transform hover:-translate-y-2 transition-transform duration-300">
+                  <div className="mb-4 relative z-10">
+                    {getIcon(index)}
+                  </div>
+                  <h3 className="text-xl font-bold text-white mb-3 relative z-10">{item.title}</h3>
+                  <p className="text-gray-400 relative z-10">
+                    {item.desc}
+                  </p>
+                </GlowCard>
+              </motion.div>
+            );
+          })}
         </motion.div>
       </div>
     </section>

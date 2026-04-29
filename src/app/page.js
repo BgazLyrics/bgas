@@ -7,10 +7,15 @@ import Works from "@/components/Works";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Terminal from "@/components/Terminal";
+import CustomCursor from "@/components/CustomCursor";
+import ScrollProgress from "@/components/ScrollProgress";
+import { LanguageProvider } from "@/context/LanguageContext";
 
 export default function Home() {
   return (
-    <>
+    <LanguageProvider>
+      <ScrollProgress />
+      <CustomCursor />
       <Navbar />
       <Terminal />
       <main className="relative z-10 w-full flex flex-col overflow-hidden">
@@ -22,6 +27,6 @@ export default function Home() {
         <Contact />
       </main>
       <Footer />
-    </>
+    </LanguageProvider>
   );
 }
