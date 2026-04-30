@@ -85,8 +85,9 @@ export default function PreLoader() {
   }, [threeProgress, active]);
 
   const totalBars = 25;
-  const filledBars = Math.floor((progress / 100) * totalBars);
-  const emptyBars = totalBars - filledBars;
+  const safeProgress = Math.min(Math.max(progress, 0), 100);
+  const filledBars = Math.floor((safeProgress / 100) * totalBars);
+  const emptyBars = Math.max(0, totalBars - filledBars);
   const barString = `[${"|".repeat(filledBars)}${":".repeat(emptyBars)}]`;
 
   return (
@@ -111,7 +112,7 @@ export default function PreLoader() {
               className="mb-8 text-center"
             >
               <div className="text-xl md:text-3xl font-bold tracking-[0.2em] mb-2 text-white drop-shadow-[0_0_10px_rgba(255,255,255,0.5)]">
-                BGAS_OS <span className="text-green-500">v2.0</span>
+                @BGAS_DIGITAL
               </div>
               <div className="text-xs md:text-sm text-gray-500">
                 (c) {new Date().getFullYear()} BAGASSEVIRIONAL CORPORATION. ALL RIGHTS RESERVED.

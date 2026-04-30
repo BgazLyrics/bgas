@@ -27,6 +27,8 @@ export const metadata = {
   },
 };
 
+import CustomCursor from "@/components/CustomCursor";
+
 export default function RootLayout({ children }) {
   return (
     <html
@@ -34,6 +36,7 @@ export default function RootLayout({ children }) {
       className={`${poppins.variable} h-full antialiased`}
     >
       <body className="min-h-full flex flex-col background-wrapper text-gray-200">
+        <CustomCursor />
         <div className="content-wrapper">{children}</div>
       </body>
     </html>

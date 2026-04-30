@@ -7,17 +7,17 @@ import Works from "@/components/Works";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
 import Terminal from "@/components/Terminal";
-import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import { LanguageProvider } from "@/context/LanguageContext";
 import PreLoader from "@/components/PreLoader";
+import DynamicTitle from "@/components/DynamicTitle";
 
 export default function Home() {
   return (
     <LanguageProvider>
+      <DynamicTitle />
       <PreLoader />
       <ScrollProgress />
-      <CustomCursor />
       <Navbar />
       <Terminal />
       <main className="relative z-10 w-full flex flex-col overflow-hidden">

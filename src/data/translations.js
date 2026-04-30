@@ -81,6 +81,11 @@ export const translations = {
       send: "Kirim Pesan",
       sending: "Mengirim..."
     },
+    dynamicTitle: {
+      comeBack: "Hey, Kembali! 😭",
+      welcomeBack: "Selamat Datang Kembali! ✨",
+      original: "Bagas | Portfolio"
+    },
     footer: {
       desc: "Mewujudkan ide menjadi realita digital pemikiran yang logika, kritis, dan sehat.",
       explore: "Jelajahi",
@@ -169,6 +174,11 @@ export const translations = {
       message: "Your Message",
       send: "Send Message",
       sending: "Sending..."
+    },
+    dynamicTitle: {
+      comeBack: "Hey, Come Back! 😭",
+      welcomeBack: "Welcome Back! ✨",
+      original: "Bagas | Portfolio"
     },
     footer: {
       desc: "Transforming ideas into digital realities through logical, critical, and healthy thinking.",
