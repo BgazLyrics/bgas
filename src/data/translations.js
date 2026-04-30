@@ -47,7 +47,7 @@ export const translations = {
         {
           year: "Kehidupan Personal",
           title: "Fotografi, Olahraga & Eksplorasi",
-          description: "Menyeimbangkan hidup di luar layar dengan fotografi (Sony a6000 & Mata Lensa), editing video (CapCut/Premiere), dan olahraga basket serta futsal. Sangat menyukai eksplorasi kuliner lokal, road trip antar kota, dan bangga berdialog dengan bahasa ngapak Banyumasan."
+          description: "Menyeimbangkan hidup di luar layar dengan fotografi (Sony a6000 & Mata Lensa), editing video (CapCut/Premiere), dan bangga berdialog dengan bahasa ngapak Banyumasan."
         }
       ]
     },
@@ -72,10 +72,11 @@ export const translations = {
       title: "Karya Terbaru"
     },
     contact: {
-      title: "Mari Berdiskusi",
-      subtitle: "Punya ide proyek atau pertanyaan? Jangan ragu untuk mengirim pesan.",
-      name: "Nama Lengkap",
-      email: "Alamat Email",
+      title: "Mari Bekerja Sama",
+      subtitle: "Punya ide atau proyek? Ceritakan kepada saya langsung.",
+      heading: "Kirim Pesan Langsung",
+      name: "Nama Anda",
+      email: "Email Anda",
       message: "Pesan Anda",
       send: "Kirim Pesan",
       sending: "Mengirim..."
@@ -135,7 +136,7 @@ export const translations = {
         {
           year: "Personal Life",
           title: "Photography, Sports & Exploration",
-          description: "Balancing life outside the screen with photography (Sony a6000), video editing (CapCut/Premiere), and sports like basketball and futsal. Passionate about exploring local culinary scenes, inter-city road trips, and proudly speaking the Banyumasan Ngapak dialect."
+          description: "Balancing life outside the screen with photography (Sony a6000), video editing (CapCut/Premiere), and sports like basketball and futsal. And proudly speaking the Banyumasan Ngapak dialect."
         }
       ]
     },
@@ -160,10 +161,11 @@ export const translations = {
       title: "Recent Works"
     },
     contact: {
-      title: "Let's Talk",
-      subtitle: "Have a project idea or just want to say hi? Feel free to drop a message.",
-      name: "Full Name",
-      email: "Email Address",
+      title: "Let's Work Together",
+      subtitle: "Have an idea or a project? Tell me directly.",
+      heading: "Send a Direct Message",
+      name: "Your Name",
+      email: "Your Email",
       message: "Your Message",
       send: "Send Message",
       sending: "Sending..."

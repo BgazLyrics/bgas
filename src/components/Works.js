@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 // Komponen GlowCard Reusable
 const GlowCard = ({ children, className }) => {
@@ -46,6 +47,7 @@ const GlowCard = ({ children, className }) => {
 };
 
 export default function Works() {
+  const { t } = useLanguage();
   const [currentIndex, setCurrentIndex] = useState(0);
   const [itemsPerPage, setItemsPerPage] = useState(3);
 
@@ -123,7 +125,7 @@ export default function Works() {
             viewport={{ once: true }}
             className="text-3xl md:text-4xl font-bold text-white mb-4 tracking-tight"
           >
-            Karya Terbaru
+            {t("works.title")}
           </motion.h2>
           <motion.div
             initial={{ opacity: 0, scale: 0 }}

@@ -1,8 +1,11 @@
 "use client";
 
 import Link from "next/link";
+import { useLanguage } from "@/context/LanguageContext";
 
 export default function Footer() {
+  const { t } = useLanguage();
+
   return (
     <footer className="bg-black/30 border-t border-white/10 pt-16 pb-8">
       <div className="container mx-auto px-6">
@@ -10,22 +13,22 @@ export default function Footer() {
           <div className="col-span-1">
             <h3 className="text-lg font-bold text-white mb-4">Bagassevirional</h3>
             <p className="text-sm">
-              Mewujudkan ide menjadi realita digital pemikiran yang logika, kritis, dan sehat.
+              {t("footer.desc")}
             </p>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Jelajahi</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t("footer.explore")}</h3>
             <ul className="space-y-2 text-sm">
-              <li><Link href="#tentang" className="hover:text-blue-400 transition-colors">Tentang</Link></li>
-              <li><Link href="#layanan" className="hover:text-blue-400 transition-colors">Keahlian</Link></li>
-              <li><Link href="#portfolio" className="hover:text-blue-400 transition-colors">Portofolio</Link></li>
-              <li><Link href="#kontak" className="hover:text-blue-400 transition-colors">Kontak</Link></li>
+              <li><Link href="#tentang" className="hover:text-blue-400 transition-colors">{t("navbar.about")}</Link></li>
+              <li><Link href="#layanan" className="hover:text-blue-400 transition-colors">{t("navbar.skills")}</Link></li>
+              <li><Link href="#portfolio" className="hover:text-blue-400 transition-colors">{t("navbar.portfolio")}</Link></li>
+              <li><Link href="#kontak" className="hover:text-blue-400 transition-colors">{t("navbar.contact")}</Link></li>
             </ul>
           </div>
 
           <div>
-            <h3 className="text-lg font-semibold text-white mb-4">Ikuti Saya</h3>
+            <h3 className="text-lg font-semibold text-white mb-4">{t("footer.follow")}</h3>
             <div className="flex space-x-4">
               <a href="https://www.instagram.com/bagasevirional/" aria-label="Instagram" className="text-gray-400 hover:text-blue-400 transition-colors">
                 <svg className="w-6 h-6" fill="currentColor" viewBox="0 0 24 24" aria-hidden="true">
@@ -57,7 +60,7 @@ export default function Footer() {
         </div>
 
         <div className="mt-12 border-t border-white/10 pt-8 text-center text-sm text-gray-500">
-          <p>© {new Date().getFullYear()} Bagassevirional. Semua Hak Cipta Dilindungi.</p>
+          <p>© {new Date().getFullYear()} Bagassevirional. {t("footer.rights")}</p>
         </div>
       </div>
     </footer>
