@@ -10,10 +10,12 @@ import Terminal from "@/components/Terminal";
 import CustomCursor from "@/components/CustomCursor";
 import ScrollProgress from "@/components/ScrollProgress";
 import { LanguageProvider } from "@/context/LanguageContext";
+import PreLoader from "@/components/PreLoader";
 
 export default function Home() {
   return (
     <LanguageProvider>
+      <PreLoader />
       <ScrollProgress />
       <CustomCursor />
       <Navbar />
