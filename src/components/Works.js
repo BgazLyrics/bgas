@@ -3,6 +3,7 @@
 import { motion } from "framer-motion";
 import { useState, useRef, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
 import { useLanguage } from "@/context/LanguageContext";
 
 // Komponen GlowCard Reusable
@@ -89,13 +90,13 @@ export default function Works() {
       title: "Coming Soon",
       role: "",
       link: "#",
-      img: "https://placehold.co/600x400/3d1c70/white?text=coming+soon",
+      img: "https://placehold.co/600x400/3d1c70/white/svg?text=coming+soon",
     },
     {
       title: "Coming Soon",
       role: "",
       link: "#",
-      img: "https://placehold.co/600x400/701c1c/white?text=coming+soon",
+      img: "https://placehold.co/600x400/701c1c/white/svg?text=coming+soon",
     },
   ];
 
@@ -150,13 +151,14 @@ export default function Works() {
             >
               {works.map((work, index) => (
                 <div key={index} className={`w-full flex-shrink-0 px-4`} style={{ width: `${100 / itemsPerPage}%` }}>
-                  <GlowCard className="group aspect-[4/3]">
-                    <Link href={work.link} target={work.link === "#" ? "_self" : "_blank"} rel="noopener noreferrer" className="block w-full h-full">
-                      {/* eslint-disable-next-line @next/next/no-img-element */}
-                      <img
+                  <GlowCard className="group aspect-[4/3] relative h-full">
+                    <Link href={work.link} target={work.link === "#" ? "_self" : "_blank"} rel="noopener noreferrer" className="block w-full h-full relative">
+                      <Image
                         src={work.img}
                         alt={work.title}
-                        className="w-full h-full object-cover group-hover:scale-110 transition-transform duration-500 relative z-0"
+                        fill
+                        sizes="(max-width: 768px) 100vw, 33vw"
+                        className="object-cover group-hover:scale-110 transition-transform duration-500 relative z-0"
                       />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-black/20 to-transparent opacity-80 z-10" />
                       <div className="absolute bottom-0 left-0 right-0 p-6 transform translate-y-4 group-hover:translate-y-0 transition-transform duration-500 ease-in-out z-10">

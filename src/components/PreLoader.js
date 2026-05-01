@@ -5,7 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import { useProgress } from "@react-three/drei";
 
 export default function PreLoader() {
-  const { progress: threeProgress, active } = useProgress();
+  const { progress: threeProgress, active, item } = useProgress();
   const [progress, setProgress] = useState(0);
   const [isLoading, setIsLoading] = useState(true);
   const [loadingText, setLoadingText] = useState("INITIALIZING_CORE_SYSTEMS...");
@@ -16,7 +16,7 @@ export default function PreLoader() {
 
     const texts = [
       "INITIALIZING_CORE_SYSTEMS...",
-      "LOADING_3D_ASSETS...",
+      "LOADING_ASSETS...",
       "ESTABLISHING_SECURE_CONNECTION...",
       "DECRYPTING_PORTFOLIO_DATA...",
       "COMPILING_STYLESHEETS...",
@@ -31,22 +31,24 @@ export default function PreLoader() {
       }
     }, 500);
 
-    // Sinkronisasi progress palsu (animasi) dengan progress asli dari Three.js
+    // Waktu tunggu simulasi jika tidak ada aset 3D yang dimuat
+    let fakeProgress = 0;
+
     const timer = setInterval(() => {
       setProgress((prev) => {
         let target = threeProgress;
         
-        // Jika Three.js belum mulai memuat, kita buat progress bohongan sampai 30% 
-        // untuk memberi ilusi bahwa sistem sedang memuat komponen lain (DOM)
+        // Jika tidak ada aset 3D yang diproses (Model3D dihapus), gunakan simulasi loading 2 detik
         if (!active && threeProgress === 0) {
-          target = 30;
+          fakeProgress += 2.5; // ~2 detik untuk mencapai 100 dengan interval 30ms
+          target = fakeProgress;
         }
 
         // Rumus Easing: Bergerak mulus menuju target
         let next = prev + (target - prev) * 0.1;
         
-        // Memastikan progress tidak melampaui 100 atau terjebak di 99.9
-        if (target === 100 && next > 99) {
+        // Memastikan progress tidak melampaui 100
+        if (target >= 100 && next > 99) {
           next = 100;
         }
 
@@ -60,7 +62,7 @@ export default function PreLoader() {
           setTimeout(() => {
             setIsLoading(false);
             document.body.style.overflow = "auto";
-          }, 800);
+          }, 600);
           
           return 100;
         }
@@ -71,10 +73,9 @@ export default function PreLoader() {
     }, 30);
 
     // Failsafe (Sistem Keamanan Darurat): 
-    // Jika internet lambat dan 3D nyangkut lebih dari 8 detik, paksa buka websitenya.
     const failsafe = setTimeout(() => {
       setProgress(100);
-    }, 8000);
+    }, 5000);
 
     return () => {
       clearInterval(timer);

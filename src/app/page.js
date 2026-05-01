@@ -1,3 +1,6 @@
+"use client";
+
+import dynamic from "next/dynamic";
 import Navbar from "@/components/Navbar";
 import Hero from "@/components/Hero";
 import About from "@/components/About";
@@ -6,11 +9,13 @@ import Skills from "@/components/Skills";
 import Works from "@/components/Works";
 import Contact from "@/components/Contact";
 import Footer from "@/components/Footer";
-import Terminal from "@/components/Terminal";
 import ScrollProgress from "@/components/ScrollProgress";
 import { LanguageProvider } from "@/context/LanguageContext";
 import PreLoader from "@/components/PreLoader";
 import DynamicTitle from "@/components/DynamicTitle";
+
+// Lazy load Terminal agar kodenya tidak dimuat kecuali pengguna membutuhkannya
+const Terminal = dynamic(() => import("@/components/Terminal"), { ssr: false });
 
 export default function Home() {
   return (

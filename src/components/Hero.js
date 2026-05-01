@@ -3,11 +3,14 @@
 import { motion, AnimatePresence } from "framer-motion";
 import { useState, useEffect } from "react";
 import Link from "next/link";
+import Image from "next/image";
+import dynamic from "next/dynamic";
 import { useLanguage } from "@/context/LanguageContext";
-import ParticleCanvas from "./ParticleCanvas";
-import Model3D from "./Model3D";
 import LocalTime from "./LocalTime";
 import Magnetic from "./Magnetic";
+
+// Lazy Load komponen berat
+const ParticleCanvas = dynamic(() => import("./ParticleCanvas"), { ssr: false });
 
 export default function Hero() {
   const { t } = useLanguage();
@@ -102,14 +105,39 @@ export default function Hero() {
           </motion.div>
         </div>
 
-        {/* Kolom Kanan: 3D Model */}
+        {/* Kolom Kanan: Foto Profil Bagas */}
         <motion.div 
-          initial={{ opacity: 0, x: 50 }}
-          animate={{ opacity: 1, x: 0 }}
-          transition={{ duration: 1, delay: 0.5 }}
-          className="w-full lg:w-6/12 h-[350px] lg:h-[500px]"
+          initial={{ opacity: 0, x: 50, y: 0 }}
+          animate={{ 
+            opacity: 1, 
+            x: 0,
+            y: [0, -15, 0] // Efek melayang
+          }}
+          transition={{ 
+            opacity: { duration: 1, delay: 0.5 },
+            x: { duration: 1, delay: 0.5 },
+            y: { duration: 5, repeat: Infinity, ease: "easeInOut", delay: 1.5 } // Berulang terus menerus
+          }}
+          className="w-full lg:w-6/12 h-[350px] lg:h-[500px] flex items-center justify-center relative"
         >
-          <Model3D />
+          {/* Efek Glow di belakang foto */}
+          <div className="absolute inset-0 bg-blue-500/20 rounded-full blur-[80px] animate-pulse pointer-events-none"></div>
+          
+          <Magnetic>
+            <div className="relative w-64 h-64 md:w-80 md:h-80 lg:w-[400px] lg:h-[400px] rounded-2xl overflow-hidden border border-white/10 shadow-[0_0_40px_rgba(59,130,246,0.3)] group transform md:-rotate-3 md:hover:rotate-0 transition-transform duration-500">
+              <Image 
+                src="/img/bagas.jpg" 
+                alt="Bagas Seviardana" 
+                fill 
+                className="object-cover transition-transform duration-700 filter md:grayscale md:hover:grayscale-0 md:group-hover:scale-110"
+                sizes="(max-width: 768px) 100vw, 50vw"
+                priority
+              />
+              <div className="absolute inset-0 border-2 border-transparent group-hover:border-blue-500/50 rounded-2xl transition-colors duration-500 pointer-events-none z-10"></div>
+              {/* Scanline overlay */}
+              <div className="absolute inset-0 pointer-events-none opacity-20 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%)] bg-[length:100%_4px] z-20 mix-blend-overlay"></div>
+            </div>
+          </Magnetic>
         </motion.div>
 
       </div>
